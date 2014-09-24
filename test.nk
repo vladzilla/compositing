@@ -1,0 +1,17 @@
+set cut_paste_input [stack 0]
+version 7.0 v9
+push $cut_paste_input
+Transform {
+center {1024 768}
+name Transform1
+selected true
+xpos -1012
+ypos 298
+}
+Grade {
+black_clamp false
+name Grade1
+selected true
+xpos -1012
+ypos 324
+}
