@@ -1,0 +1,16 @@
+ContactSheet {
+ rows 5
+ columns 5
+ name ContactSheet3
+ selected true
+ xpos 1838
+ ypos 690
+ addUserKnob {20 User}
+ addUserKnob {22 Framerange T "n=nuke.thisNode()\nnode = nuke.thisNode()\nread = \{\}\nfor input in node.dependencies():\n    read\[input] = input.frameRange().frames()\n\nseq = max(read, key=read.get)\nprint \"\{1\}\".format(seq.name(), read\[seq])\n\nn\[\"last_frameCS\"].setValue(\[\"\{1\}\".format(seq.name(), read\[seq])])" +STARTLINE}
+ addUserKnob {12 fr}
+ fr {{first_frameCS} {first_frameCS+last_frameCS}}
+ addUserKnob {3 first_frameCS l INVISIBLE +INVISIBLE}
+ first_frameCS {{input.first_frame}}
+ addUserKnob {3 last_frameCS l INVISIBLE -STARTLINE +INVISIBLE}
+ last_frameCS 501
+}
