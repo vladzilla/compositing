@@ -1,16 +1,22 @@
+set cut_paste_input [stack 0]
+version 8.0 v6
+push $cut_paste_input
 ContactSheet {
- rows 5
- columns 5
+ width {3072}
+ height {2048}
+ rows {5}
+ columns {5}
+ gap {0}
+ startframe {-1}
+ endframe {-1}
  name ContactSheet3
  selected true
- xpos 1838
- ypos 690
+ xpos -2188
+ ypos 345
  addUserKnob {20 User}
- addUserKnob {22 Framerange T "n=nuke.thisNode()\nnode = nuke.thisNode()\nread = \{\}\nfor input in node.dependencies():\n    read\[input] = input.frameRange().frames()\n\nseq = max(read, key=read.get)\nprint \"\{1\}\".format(seq.name(), read\[seq])\n\nn\[\"last_frameCS\"].setValue(\[\"\{1\}\".format(seq.name(), read\[seq])])" +STARTLINE}
- addUserKnob {12 fr}
- fr {{first_frameCS} {first_frameCS+last_frameCS}}
- addUserKnob {3 first_frameCS l INVISIBLE +INVISIBLE}
- first_frameCS {{input.first_frame}}
- addUserKnob {3 last_frameCS l INVISIBLE -STARTLINE +INVISIBLE}
- last_frameCS 501
+ addUserKnob {22 Framerange T "n=nuke.thisNode()\nnode = nuke.thisNode()\nread = \{\}\nfor input in node.dependencies():\n#    read\[input] = input.frameRange().frames()\n    read\[input] = input.lastFrame()\nseq = max(read, key=read.get)\n# print \"\{0\} in \{1\}\".format(seq.name(), read\[seq])\n\nn\[\"last_frameCS\"].setValue(\[\"\{1\}\".format(seq.name(), read\[seq])])\n\nfor input in node.dependencies():\n    read\[input] = input.firstFrame()\n\nseq = min(read, key=read.get)\n# print \"\{0\}in\{1\}\".format(seq.name(), read\[seq])\n\nn\[\"first_frameCS\"].setValue(\[\"\{1\}\".format(seq.name(), read\[seq])])" +STARTLINE}
+ addUserKnob {3 first_frameCS l "" -STARTLINE}
+ first_frameCS {980}
+ addUserKnob {3 last_frameCS l "" -STARTLINE}
+ last_frameCS {1424}
 }
