@@ -1,0 +1,23 @@
+set cut_paste_input [stack 0]
+version 7.0 v6
+push $cut_paste_input
+Group {
+ name dotPainter
+ selected true
+ xpos 223
+ ypos 148
+ addUserKnob {20 User}
+ addUserKnob {26 tt l "" +STARTLINE T "Connect input to the image and click go\nRemember to reformat image each pixel in the image will be a dot node"}
+ addUserKnob {22 go T "n=nuke.thisNode()\n\nwidth=n.width()\nheight=n.height()\ndtSize=12\nwidth=n.width()\nheight=n.height()\n\nif (width>1024) or (height>1024):\n    print \"Input image is too big. stoping to prevent crash\"\nelse:\n    nuke.root().begin()\n    \n    start_x,start_y=n\['xpos'].getValue()+100,n\['ypos'].getValue()+50\n    for j in range(0,height):\n        for i in range(0,width):\n            R=n.sample('red', i,height-j)\n            G=n.sample('green',i,height-j)\n            B=n.sample('blue', i,height-j)\n            A=n.sample('alpha', i,height-j)\n            R=R*A+.2*(1-A)\n            G=G*A+.2*(1-A)\n            B=B*A+.2*(1-A)\n    \n            if A>0:\n                dt=nuke.nodes.Dot(xpos=start_x+i*dtSize, ypos=start_y+j*dtSize,hide_input=True,tile_color = int('%02x%02x%02x%02x' % (R*255,G*255,B*255,255), 16 ))\n    \n    nuke.root().end()" +STARTLINE}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 0
+ }
+ Output {
+  name Output1
+  xpos 0
+  ypos 300
+ }
+end_group
